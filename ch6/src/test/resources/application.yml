@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ENC(N1am6lNQpSxCHyt6A2t0uuikTHhoAdF1I87w6FaDsGA8jtKudfC2BXx06CmJq1hP)
+    username: ENC(03jrq4PvrkBd1VBZleWW0g==)
+    password: ENC(2dglsqJyyHLKFCQ9MVrJxqL2u8+BIacY)
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        database-platform: org.hibernate.dialect.MariaDB103Dialect
+        format_sql: true
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
