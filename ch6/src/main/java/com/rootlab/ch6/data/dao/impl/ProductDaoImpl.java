@@ -48,9 +48,6 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void deleteProduct(Long number) {
 		Product product = productRepository.findById(number)
-//				.orElseThrow(() -> {
-//					return new RuntimeException("해당 number에 해당하는 Product가 존재하지 않습니다.");
-//				})
 				.orElseThrow(() ->
 						new RuntimeException("해당 number에 해당하는 Product가 존재하지 않습니다.")
 				);

@@ -2,12 +2,14 @@ package com.rootlab.ch6.data.dto;
 
 import com.rootlab.ch6.data.entity.Product;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ProductRequestDto {
 	private String name;
 

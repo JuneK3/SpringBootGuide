@@ -30,9 +30,16 @@ dependencies {
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    // gson
+    implementation 'com.google.code.gson:gson'
+    // configuration-processor
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // test database
+    implementation 'com.h2database:h2'
+    testImplementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
+
 }
 
 tasks.named('test') {
