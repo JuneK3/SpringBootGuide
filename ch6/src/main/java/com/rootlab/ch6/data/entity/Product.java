@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Generated // lombok으로 생성되는 코드들을 테스트 커버리지에서 제외
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

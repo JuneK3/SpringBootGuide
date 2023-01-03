@@ -3,12 +3,14 @@ package com.rootlab.ch6.repository;
 import com.rootlab.ch6.data.entity.Product;
 import com.rootlab.ch6.data.repository.ProductRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+@Disabled
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class ProductRepositoryTestWithMariaDB {

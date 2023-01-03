@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.7'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'jacoco' // jacoco 추가
 }
 
 group = 'com.rootlab'
@@ -38,10 +39,83 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // test database
     implementation 'com.h2database:h2'
-    testImplementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
-
 }
+
+// jacoco 설정 참고
+// https://insight-bgh.tistory.com/521
+// https://bit.ly/3VGiRjw
+// https://backtony.github.io/spring/2022-02-01-spring-test-5/
+
+jacoco {
+    toolVersion = '0.8.7' // jacoco 버전 설정
+
+    //  테스트결과 리포트를 저장할 경로 변경
+    //  default는 '${project.reporting.baseDir}/jacoco'
+    //  reportsDir = file('$buildDir/customJacocoReportDir')
+}
+
+// test -> jacocoTestReport -> jacocoTestCoverageVerification 순서로 task를 실행해야 함
+// finalizedBy로 Task간의 순서 설정 가능
+// verification -> test로 실행 후 build/reports/jacoco/test/html/index.html에서 결과 확인
 
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
+    // 테스트 커버리지 계산에서 제외할 파일들 설정
+    jacoco {
+        excludes += [
+                'com/rootlab/ch6/config/**',
+                'com/rootlab/ch6/data/dao/**',
+                'com/rootlab/ch6/data/dto/**',
+                'com/rootlab/ch6/service/impl/ProductServiceImplWithDao.class',
+        ]
+    }
 }
+
+jacocoTestReport {
+    reports {
+        // 원하는 리포트 on/off 가능
+        html.required.set(true)
+        xml.required.set(false)
+        csv.required.set(false)
+        //  각 리포트 타입 마다 리포트 저장 경로 설정가능
+        //  html.destination file("$buildDir/jacocoHtml")
+        //  xml.destination file("$buildDir/jacoco.xml")
+    }
+    finalizedBy 'jacocoTestCoverageVerification'
+    // 테스트 커버리지 계산에서 제외할 파일들 설정
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: [
+                            'com/rootlab/ch6/config/**',
+                            'com/rootlab/ch6/data/dao/**',
+                            'com/rootlab/ch6/data/dto/**',
+                            'com/rootlab/ch6/service/impl/ProductServiceImplWithDao.class',
+                    ])
+        }))
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'BUNDLE'
+            limit {
+                counter = 'INSTRUCTION'
+                value = 'COVEREDRATIO'
+                minimum = 0.80
+            }
+        }
+//        rule {
+//            element = 'METHOD'
+//            limit {
+//                counter = 'LINE'
+//                value = 'TOTALCOUNT'
+//                minimum = 50
+//            }
+//            excludes = []
+//        }
+    }
+}
+
