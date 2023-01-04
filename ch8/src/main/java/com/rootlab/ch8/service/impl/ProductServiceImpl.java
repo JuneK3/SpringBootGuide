@@ -3,15 +3,13 @@ package com.rootlab.ch8.service.impl;
 import com.rootlab.ch8.data.dto.ProductRequestDto;
 import com.rootlab.ch8.data.dto.ProductResponseDto;
 import com.rootlab.ch8.data.entity.Product;
-import com.rootlab.ch8.data.repository.support.ProductRepository;
+import com.rootlab.ch8.data.repository.ProductRepository;
 import com.rootlab.ch8.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -39,8 +37,8 @@ public class ProductServiceImpl implements ProductService {
 	public ProductResponseDto saveProduct(ProductRequestDto productRequestDto) {
 		LOGGER.info("[saveProduct] productRequestDto : {}", productRequestDto);
 		Product product = productRequestDto.toEntity();
-		product.setCreatedAt(LocalDateTime.now());
-		product.setUpdatedAt(LocalDateTime.now());
+//		product.setCreatedAt(LocalDateTime.now());
+//		product.setUpdatedAt(LocalDateTime.now());
 		Product savedProduct = productRepository.save(product);
 		LOGGER.info("[saveProduct] savedProduct : {}", savedProduct);
 		return savedProduct.toResponseDto();
@@ -52,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 				() -> new RuntimeException("해당 number에 해당하는 Product가 존재하지 않습니다.")
 		);
 		product.setName(name);
-		product.setUpdatedAt(LocalDateTime.now());
+//		product.setUpdatedAt(LocalDateTime.now());
 		Product updatedProduct = productRepository.save(product);
 		return updatedProduct.toResponseDto();
 	}

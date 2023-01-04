@@ -4,16 +4,18 @@ import com.rootlab.ch8.data.dto.ProductResponseDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(callSuper = true) // 부모클래스의 필드를 포함하도록 설정
+@EqualsAndHashCode(callSuper = true) // 부모클래스의 필드를 포함하도록 설정
 @Generated // lombok으로 생성되는 코드들을 테스트 커버리지에서 제외
-public class Product {
+public class Product extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long number;
@@ -26,10 +28,6 @@ public class Product {
 
 	@Column(nullable = false)
 	private Integer stock;
-
-	private LocalDateTime createdAt;
-
-	private LocalDateTime updatedAt;
 
 	public ProductResponseDto toResponseDto() {
 		return ProductResponseDto.builder()

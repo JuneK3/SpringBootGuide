@@ -1,4 +1,4 @@
-package com.rootlab.ch8.data.repository.support;
+package com.rootlab.ch8.data.repository;
 
 import com.rootlab.ch8.data.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
