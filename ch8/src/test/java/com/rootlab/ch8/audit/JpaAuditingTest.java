@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Import;
 @DataJpaTest
 @Import({JpaAuditingConfig.class, ProductServiceImpl.class})
 //@AutoConfigureTestDatabase(replace = Replace.NONE)
+// Real DB 사용시 test 환경에서도 환경변수 설정해주어야 제대로 동작함
+// Edit Configurations로 재설정
 public class JpaAuditingTest {
 
 	@Autowired
