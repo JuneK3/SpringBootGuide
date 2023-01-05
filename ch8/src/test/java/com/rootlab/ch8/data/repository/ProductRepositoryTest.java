@@ -4,7 +4,6 @@ import com.rootlab.ch8.config.IsolatedSpringBootTest;
 import com.rootlab.ch8.data.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,7 +23,7 @@ class ProductRepositoryTest {
 	ProductRepository productRepository;
 
 	@Test
-	void sortingAndPagingTest() {
+	public void sortingAndPagingTest() {
 		// given
 		Product product1 = Product.builder()
 				.name("pen")
@@ -144,7 +143,7 @@ class ProductRepositoryTest {
 				.stock(300)
 				.build();
 
-		Product savedProduct = productRepository.save(product1);
+		Product savedProduct1 = productRepository.save(product1);
 		Product savedProduct2 = productRepository.save(product2);
 
 		// when
@@ -153,10 +152,10 @@ class ProductRepositoryTest {
 		Product foundProduct2 = foundProducts.get(1);
 
 		// then
-		assertThat(foundProduct1.getNumber()).isEqualTo(savedProduct.getNumber());
-		assertThat(foundProduct1.getName()).isEqualTo(savedProduct.getName());
-		assertThat(foundProduct1.getPrice()).isEqualTo(savedProduct.getPrice());
-		assertThat(foundProduct1.getStock()).isEqualTo(savedProduct.getStock());
+		assertThat(foundProduct1.getNumber()).isEqualTo(savedProduct1.getNumber());
+		assertThat(foundProduct1.getName()).isEqualTo(savedProduct1.getName());
+		assertThat(foundProduct1.getPrice()).isEqualTo(savedProduct1.getPrice());
+		assertThat(foundProduct1.getStock()).isEqualTo(savedProduct1.getStock());
 
 		assertThat(foundProduct2.getNumber()).isEqualTo(savedProduct2.getNumber());
 		assertThat(foundProduct2.getName()).isEqualTo(savedProduct2.getName());
