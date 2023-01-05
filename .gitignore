@@ -8,6 +8,7 @@ build/
 */target/
 */logs
 */*.log
+*/src/main/generated
 
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
