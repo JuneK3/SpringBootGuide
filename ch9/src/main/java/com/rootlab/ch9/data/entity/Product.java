@@ -4,9 +4,10 @@ import com.rootlab.ch9.data.dto.ProductResponseDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,5 +36,25 @@ public class Product extends BaseEntity {
 				.price(price)
 				.stock(stock)
 				.build();
+	}
+
+	/* 단방향 참조만 사용하기
+	@OneToOne(mappedBy = "product")
+//	@JsonBackReference // 순환 참조 계속 발생
+	@ToString.Exclude
+	private ProductDetail productDetail;
+	 */
+
+	@ManyToOne
+	@JoinColumn(name = "provider_id")
+	@ToString.Exclude // 전체 테스트시 lazy loading 오류가 발생해 추가함
+	private Provider provider;
+
+	@ManyToMany
+	@ToString.Exclude // 전체 테스트시 lazy loading 오류가 발생해 추가함
+	private List<Producer> producers = new ArrayList<>();
+
+	public void addProducer(Producer producer){
+		this.producers.add(producer);
 	}
 }
