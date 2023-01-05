@@ -14,7 +14,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://mangkyu.tistory.com/264
-// @DataJpaTest와 달리 @SpringBootTest는 @Transactional로 테스트 메소드들이 격리되지 않는다.
+// https://kth990303.tistory.com/371
+// @DataJpaTest와 달리 RANDOM_PORT와 DEFINED_PORT 환경의 @SpringBootTest는
+// @Transactional로 테스트 메소드들이 격리되지 않는다.
+// 주의: default 세팅인 MOCK환경의 경우 @Transactional로 격리가 가능하다.
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @IsolatedSpringBootTest
 class ProductRepositoryTest {
