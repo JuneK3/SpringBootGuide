@@ -1,7 +1,6 @@
-package com.rootlab.ch8.audit;
+package com.rootlab.ch8.data.entity;
 
 import com.rootlab.ch8.config.JpaAuditingConfig;
-import com.rootlab.ch8.data.entity.Product;
 import com.rootlab.ch8.data.repository.ProductRepository;
 import com.rootlab.ch8.service.impl.ProductServiceImpl;
 import org.assertj.core.api.Assertions;
