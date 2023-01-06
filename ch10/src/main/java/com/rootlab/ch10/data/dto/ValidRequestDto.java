@@ -1,10 +1,7 @@
 package com.rootlab.ch10.data.dto;
 
 import com.rootlab.ch10.config.annotation.Telephone;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
@@ -38,7 +35,7 @@ public class ValidRequestDto {
 	private int age;
 
 	// @Size(min = $minNumber, max = $maxNumber) : 문자열의 길이를 제한
-	@Size(min = 0, max = 40)
+	@Size(min = 1, max = 40)
 	private String description;
 
 	// @Positive : 양수를 허용

@@ -7,6 +7,8 @@ import com.rootlab.ch10.data.dto.ValidRequestDto;
 import com.rootlab.ch10.data.dto.ValidatedRequestDto;
 import com.rootlab.ch10.data.group.ValidationGroup1;
 import com.rootlab.ch10.data.group.ValidationGroup2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,9 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/validation")
 public class ValidationController {
 
+	private final Logger log = LoggerFactory.getLogger(ValidationController.class);
+
 	@PostMapping("/valid")
 	public ResponseEntity<String> checkValidationByValid(
 			@Valid @RequestBody ValidRequestDto validRequestDto) {
+		log.info(validRequestDto.toString());
 		return ResponseEntity.status(HttpStatus.OK).body(validRequestDto.toString());
 	}
 
@@ -35,7 +40,8 @@ public class ValidationController {
 	 * 클래스에 @Validated를 붙여주고, 유효성을 검증할 메소드의 파라미터에 @Valid를 붙여주면 유효성 검증이 진행된다.
 	 */
 
-	/** @Validated의 그룹 지정 기능 - 코드가 복잡해지므로 사용을 자제해야 할 것 같음 이러한 기능이 있다는 것만 참고
+	/**
+	 * @Validated의 그룹 지정 기능 - 코드가 복잡해지므로 사용을 자제해야 할 것 같음 이러한 기능이 있다는 것만 참고
 	 * @Validated에 특정 그룹을 지정하지 않는 경우: groups가 없는 속성들만 처리
 	 * @Validated에 특정 그룹을 지정한 경우: 지정된 클래스를 groups로 가진 제약사항만 처리
 	 */
@@ -43,18 +49,21 @@ public class ValidationController {
 	@PostMapping("/validated")
 	public ResponseEntity<String> checkValidation(
 			@Validated @RequestBody ValidatedRequestDto validatedRequestDto) {
+		log.info(validatedRequestDto.toString());
 		return ResponseEntity.status(HttpStatus.OK).body(validatedRequestDto.toString());
 	}
 
 	@PostMapping("/validated/group1")
 	public ResponseEntity<String> checkValidation1(
 			@Validated(ValidationGroup1.class) @RequestBody ValidatedRequestDto validatedRequestDto) {
+		log.info(validatedRequestDto.toString());
 		return ResponseEntity.status(HttpStatus.OK).body(validatedRequestDto.toString());
 	}
 
 	@PostMapping("/validated/group2")
 	public ResponseEntity<String> checkValidation2(
 			@Validated(ValidationGroup2.class) @RequestBody ValidatedRequestDto validatedRequestDto) {
+		log.info(validatedRequestDto.toString());
 		return ResponseEntity.status(HttpStatus.OK).body(validatedRequestDto.toString());
 	}
 
@@ -62,6 +71,7 @@ public class ValidationController {
 	public ResponseEntity<String> checkValidation3(
 			@Validated({ValidationGroup1.class,
 					ValidationGroup2.class}) @RequestBody ValidatedRequestDto validatedRequestDto) {
+		log.info(validatedRequestDto.toString());
 		return ResponseEntity.status(HttpStatus.OK).body(validatedRequestDto.toString());
 	}
 }
