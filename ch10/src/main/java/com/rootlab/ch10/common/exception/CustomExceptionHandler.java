@@ -16,14 +16,15 @@ import java.util.Map;
 @RestControllerAdvice
 public class CustomExceptionHandler {
 
-	private final Logger LOGGER = LoggerFactory.getLogger(CustomExceptionHandler.class);
+	private final Logger log = LoggerFactory.getLogger(CustomExceptionHandler.class);
 
+	// Controller 클래스내에 ExceptionHandler를 작성하는 경우의 우선순위가 더 높다
 	@ExceptionHandler(value = RuntimeException.class)
 	public ResponseEntity<Map<String, String>> handleException(RuntimeException e, HttpServletRequest request) {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
 
-		LOGGER.error("Advice 내 exceptionHandler 호출, {}, {}", request.getRequestURI(), e.getMessage());
+		log.error("Advice의 exceptionHandler 호출, {}, {}", request.getRequestURI(), e.getMessage());
 
 		Map<String, String> map = new HashMap<>();
 		map.put("error type", httpStatus.getReasonPhrase());
@@ -44,6 +45,19 @@ public class CustomExceptionHandler {
 		map.put("message", e.getMessage());
 
 		return new ResponseEntity<>(map, responseHeaders, httpStatus);
+	}
+
+	@ExceptionHandler(value = CustomException.class)
+	public ResponseEntity<Map<String, String>> handleException(CustomException e, HttpServletRequest request) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		log.error("Advice의 handleException 호출, {}, {}", request.getRequestURI(), e.getMessage());
+
+		Map<String, String> map = new HashMap<>();
+		map.put("error type", e.getHttpStatusType());
+		map.put("code", Integer.toString(e.getHttpStatusCode()));
+		map.put("message", e.getMessage());
+
+		return new ResponseEntity<>(map, responseHeaders, e.getHttpStatus());
 	}
 
 }

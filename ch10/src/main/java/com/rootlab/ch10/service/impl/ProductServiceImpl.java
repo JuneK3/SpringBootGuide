@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	private final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
+	private final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
 	private final ProductRepository productRepository;
 
 	@Autowired
@@ -23,22 +23,22 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductResponseDto getProduct(Long number) {
-		LOGGER.info("[getProduct] input number : {}", number);
+		log.info("[getProduct] input number : {}", number);
 		Product product = productRepository.findById(number).orElseThrow(
 				() -> new RuntimeException("해당 number에 해당하는 Product가 존재하지 않습니다.")
 		);
-		LOGGER.info("[getProduct] product number : {}, name : {}", product.getNumber(), product.getName());
+		log.info("[getProduct] product number : {}, name : {}", product.getNumber(), product.getName());
 		return product.toResponseDto();
 	}
 
 	@Override
 	public ProductResponseDto saveProduct(ProductRequestDto productRequestDto) {
-		LOGGER.info("[saveProduct] productRequestDto : {}", productRequestDto);
+		log.info("[saveProduct] productRequestDto : {}", productRequestDto);
 		Product product = productRequestDto.toEntity();
 //		product.setCreatedAt(LocalDateTime.now());
 //		product.setUpdatedAt(LocalDateTime.now());
 		Product savedProduct = productRepository.save(product);
-		LOGGER.info("[saveProduct] savedProduct : {}", savedProduct);
+		log.info("[saveProduct] savedProduct : {}", savedProduct);
 		return savedProduct.toResponseDto();
 	}
 
