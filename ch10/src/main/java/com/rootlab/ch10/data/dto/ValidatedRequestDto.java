@@ -1,5 +1,6 @@
 package com.rootlab.ch10.data.dto;
 
+import com.rootlab.ch10.config.annotation.Telephone;
 import com.rootlab.ch10.data.group.ValidationGroup1;
 import com.rootlab.ch10.data.group.ValidationGroup2;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,8 @@ public class ValidatedRequestDto {
 	@Email
 	private String email;
 
-	@Pattern(regexp = "01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$")
+//	@Pattern(regexp = "01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$")
+	@Telephone
 	private String phoneNumber;
 
 	@Min(value = 20, groups = ValidationGroup1.class)

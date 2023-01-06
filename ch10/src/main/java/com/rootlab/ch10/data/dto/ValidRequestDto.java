@@ -1,5 +1,6 @@
 package com.rootlab.ch10.data.dto;
 
+import com.rootlab.ch10.config.annotation.Telephone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,8 +25,8 @@ public class ValidRequestDto {
 	private String email;
 
 	// @Pattern : 정규식을 검사
-	@Pattern(regexp = "01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$")
-	//@Telephone
+//	@Pattern(regexp = "01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$")
+	@Telephone
 	private String phoneNumber;
 
 	// DecimalMin(value = "$numberString") : $numberString 이상의 값을 허용
