@@ -1,4 +1,17 @@
 package com.rootlab.ch12.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class MemberDto {
+
+	private String name;
+	private String email;
+	private String team;
+
 }
+

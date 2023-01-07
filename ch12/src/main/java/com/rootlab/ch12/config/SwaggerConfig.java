@@ -28,7 +28,7 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Spring Boot Open API Test with Swagger")
-				.description("설명 부분")
+				.description("description")
 				.version("1.0.0")
 				.build();
 	}
