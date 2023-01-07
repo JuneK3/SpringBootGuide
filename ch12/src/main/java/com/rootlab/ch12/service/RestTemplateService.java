@@ -112,4 +112,5 @@ public class RestTemplateService {
 		ResponseEntity<MemberDto> responseEntity = restTemplate.exchange(requestEntity, MemberDto.class);
 		return responseEntity;
 	}
+
 }

@@ -16,8 +16,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     // webclient 사용을 위해 추가
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    // httpclient
-    implementation 'org.apache.httpcomponents.client5:httpclient5'
+    // apache.httpcomponents 추가
+    implementation 'org.apache.httpcomponents:httpclient'
     // swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     // lombok
