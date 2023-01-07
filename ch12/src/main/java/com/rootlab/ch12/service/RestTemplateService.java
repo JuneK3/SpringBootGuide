@@ -52,7 +52,7 @@ public class RestTemplateService {
 	public ResponseEntity<MemberDto> postWithParam() {
 		URI uri = UriComponentsBuilder
 				.fromUriString("http://localhost:9090")
-				.path("/api/v1/crud-api")
+				.path("/api/v1/crud-api/param")
 				.queryParam("name", "hongik")
 				.queryParam("email", "hongik@hongik.ac.kr")
 				.queryParam("team", "hice")
@@ -71,7 +71,7 @@ public class RestTemplateService {
 	public ResponseEntity<MemberDto> postWithBody() {
 		URI uri = UriComponentsBuilder
 				.fromUriString("http://localhost:9090")
-				.path("/api/v1/crud-api")
+				.path("/api/v1/crud-api/body")
 				.encode()
 				.build()
 				.toUri();

@@ -32,7 +32,7 @@ public class CrudController {
 		return "Hello. " + name + "!";
 	}
 
-	@PostMapping
+	@PostMapping("/param")
 	public ResponseEntity<MemberDto> getMemberFromParam(
 			@RequestParam String name,
 			@RequestParam String email,
@@ -45,7 +45,7 @@ public class CrudController {
 		return ResponseEntity.status(HttpStatus.OK).body(memberDto);
 	}
 
-	@PostMapping
+	@PostMapping("/body")
 	public ResponseEntity<MemberDto> getMember(@RequestBody MemberDto request) {
 		MemberDto memberDto = new MemberDto();
 		memberDto.setName(request.getName());
