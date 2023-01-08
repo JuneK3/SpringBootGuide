@@ -42,6 +42,9 @@ public class SwaggerConfig {
 				.build();
 	}
 
+	// https://gksdudrb922.tistory.com/219
+	// Spring Security + Swagger 3.0 적용
+
 	private SecurityContext securityContext() {
 		return SecurityContext.builder()
 				.securityReferences(defaultAuth())
@@ -56,8 +59,8 @@ public class SwaggerConfig {
 	}
 
 	private ApiKey apiKey() {
-//		return new ApiKey("Authorization", "Authorization", "header");
-		return new ApiKey("X-AUTH-TOKEN", "X-AUTH-TOKEN", "header");
+		return new ApiKey("Authorization", "Authorization", "header");
+//		return new ApiKey("X-AUTH-TOKEN", "X-AUTH-TOKEN", "header");
 
 	}
 }

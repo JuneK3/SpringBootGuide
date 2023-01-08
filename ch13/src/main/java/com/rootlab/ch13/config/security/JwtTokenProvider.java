@@ -83,10 +83,26 @@ public class JwtTokenProvider {
 	 */
 	public String resolveToken(HttpServletRequest request) {
 		log.info("[resolveToken] HTTP 헤더에서 Token 값 추출");
-		return request.getHeader("X-AUTH-TOKEN");
+		String header = request.getHeader("Authorization");
+		String token = header.split(" ")[1].trim();
+		return token;
 	}
 
 	// JWT 토큰의 유효성 + 만료일 체크
+	public boolean validateToken(String token) {
+		log.info("[validateToken] 토큰 유효 체크 시작");
+		JwtParser parser = Jwts.parserBuilder()
+				.setSigningKey(key)
+				.build();
+		Jws<Claims> claims = parser.parseClaimsJws(token);
+		log.info("[validateToken] 토큰 유효 체크 완료");
+		if (!claims.getBody().getExpiration().before(new Date())) {
+			return true;
+		}
+		return false;
+	}
+
+	/*
 	public boolean validateToken(String token) {
 		log.info("[validateToken] 토큰 유효 체크 시작");
 		try {
@@ -101,5 +117,5 @@ public class JwtTokenProvider {
 			return false;
 		}
 	}
-
+	*/
 }

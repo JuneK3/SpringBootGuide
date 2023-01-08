@@ -4,8 +4,6 @@ import com.rootlab.ch13.data.dto.ChangeProductNameDto;
 import com.rootlab.ch13.data.dto.ProductRequestDto;
 import com.rootlab.ch13.data.dto.ProductResponseDto;
 import com.rootlab.ch13.service.ProductService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,17 +25,17 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.OK).body(productResponseDto);
 	}
 
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 발급 받은 access_token",
-					required = true, dataType = "String", paramType = "header")
-	})
+	//	@ApiImplicitParams({
+//			@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 발급 받은 access_token",
+//					required = true, dataType = "String", paramType = "header")
+//	})
 	@PostMapping
 	public ResponseEntity<ProductResponseDto> postProduct(@RequestBody ProductRequestDto productRequestDto) {
 		ProductResponseDto productResponseDto = productService.saveProduct(productRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(productResponseDto);
 	}
 
-	@PutMapping()
+	@PutMapping
 	public ResponseEntity<ProductResponseDto> changeProductName(@RequestBody ChangeProductNameDto changeProductNameDto) {
 		ProductResponseDto productResponseDto = productService.changeProductName(
 				changeProductNameDto.getNumber(),

@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		User savedUser = userRepository.save(user);
-		SignUpResultDto signUpResultDto = new SignInResultDto();
+		SignUpResultDto signUpResultDto = new SignUpResultDto();
 		log.info("[getSignUpResult] userEntity 값이 들어왔는지 확인 후 결과값 주입");
 
 		if (!savedUser.getName().isEmpty()) {
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
 		log.info("[getSignInResult] 패스워드 비교 수행");
 		if (!passwordEncoder.matches(password, user.getPassword())) {
-			throw new RuntimeException();
+			throw new RuntimeException("패스워드 불일치");
 		}
 		log.info("[getSignInResult] 패스워드 일치");
 
