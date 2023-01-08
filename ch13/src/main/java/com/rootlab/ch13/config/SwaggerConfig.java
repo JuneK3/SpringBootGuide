@@ -44,6 +44,7 @@ public class SwaggerConfig {
 
 	// https://gksdudrb922.tistory.com/219
 	// Spring Security + Swagger 3.0 적용
+	// TODO: 코드가 의미하는게 무엇인지 제대로 파악하기
 
 	private SecurityContext securityContext() {
 		return SecurityContext.builder()
@@ -60,7 +61,5 @@ public class SwaggerConfig {
 
 	private ApiKey apiKey() {
 		return new ApiKey("Authorization", "Authorization", "header");
-//		return new ApiKey("X-AUTH-TOKEN", "X-AUTH-TOKEN", "header");
-
 	}
 }

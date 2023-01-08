@@ -24,11 +24,7 @@ public class ProductController {
 		ProductResponseDto productResponseDto = productService.getProduct(number);
 		return ResponseEntity.status(HttpStatus.OK).body(productResponseDto);
 	}
-
-	//	@ApiImplicitParams({
-//			@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 발급 받은 access_token",
-//					required = true, dataType = "String", paramType = "header")
-//	})
+	
 	@PostMapping
 	public ResponseEntity<ProductResponseDto> postProduct(@RequestBody ProductRequestDto productRequestDto) {
 		ProductResponseDto productResponseDto = productService.saveProduct(productRequestDto);

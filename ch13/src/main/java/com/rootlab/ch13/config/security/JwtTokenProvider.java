@@ -101,21 +101,4 @@ public class JwtTokenProvider {
 		}
 		return false;
 	}
-
-	/*
-	public boolean validateToken(String token) {
-		log.info("[validateToken] 토큰 유효 체크 시작");
-		try {
-			JwtParser parser = Jwts.parserBuilder()
-					.setSigningKey(key)
-					.build();
-			Jws<Claims> claims = parser.parseClaimsJws(token);
-			log.info("[validateToken] 토큰 유효 체크 완료");
-			return !claims.getBody().getExpiration().before(new Date());
-		} catch (Exception e) {
-			log.info("[validateToken] 토큰 유효 체크 예외 발생");
-			return false;
-		}
-	}
-	*/
 }
