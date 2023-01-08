@@ -29,15 +29,10 @@ public class JwtTokenProvider {
 
 	// SecretKey 에 대해 인코딩 수행
 	public JwtTokenProvider(@Value("${jwt.secret}") String secretKey, UserDetailsService userDetailsService) {
-
 		log.info("[init] JwtTokenProvider에서 secretKey 초기화 시작");
-
 		byte[] keyBytes = Base64.getEncoder().encode(secretKey.getBytes(StandardCharsets.UTF_8));
 		this.key = Keys.hmacShaKeyFor(keyBytes);
-
 		log.info("[init] JwtTokenProvider에서 secretKey 초기화 완료");
-		System.out.println(key);
-
 		this.userDetailsService = userDetailsService;
 	}
 

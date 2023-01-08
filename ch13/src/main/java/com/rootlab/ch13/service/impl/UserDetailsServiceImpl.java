@@ -22,4 +22,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		log.info("[loadUserByUsername] loadUserByUsername 수행: username = {}", username);
 		return userRepository.findByUid(username);
 	}
+
 }
