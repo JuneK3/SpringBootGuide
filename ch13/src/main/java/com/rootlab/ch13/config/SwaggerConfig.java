@@ -24,8 +24,8 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey()))
-                .consumes(getConsumeContentTypes())
-                .produces(getProduceContentTypes())
+//                .consumes(getConsumeContentTypes())
+//                .produces(getProduceContentTypes())
                 .apiInfo(apiInfo())
 //				.useDefaultResponseMessages(false)
                 .select()
@@ -34,18 +34,18 @@ public class SwaggerConfig {
                 .build();
     }
 
-    private Set<String> getConsumeContentTypes() {
-        Set<String> consumes = new HashSet<>();
-        consumes.add("application/json;charset=UTF-8");
-        consumes.add("application/x-www-form-urlencoded");
-        return consumes;
-    }
-
-    private Set<String> getProduceContentTypes() {
-        Set<String> produces = new HashSet<>();
-        produces.add("application/json;charset=UTF-8");
-        return produces;
-    }
+//    private Set<String> getConsumeContentTypes() {
+//        Set<String> consumes = new HashSet<>();
+//        consumes.add("application/json;charset=UTF-8");
+//        consumes.add("application/x-www-form-urlencoded");
+//        return consumes;
+//    }
+//
+//    private Set<String> getProduceContentTypes() {
+//        Set<String> produces = new HashSet<>();
+//        produces.add("application/json;charset=UTF-8");
+//        return produces;
+//    }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
