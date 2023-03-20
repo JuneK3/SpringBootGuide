@@ -1,5 +1,5 @@
 <details>
-<summary><a href="/shorturl/">더 학습할 내용</a></summary>
+<summary><a href="/ch14/">더 학습할 내용</a></summary>
 <div markdown="1">
 
 - 단축 URL 기능 개발하기

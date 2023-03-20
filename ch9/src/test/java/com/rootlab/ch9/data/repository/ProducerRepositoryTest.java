@@ -19,7 +19,7 @@ class ProducerRepositoryTest {
 	ProductRepository productRepository;
 
 	@Test
-	@Transactional 
+	@Transactional
 	// @Transactional로 영속성 컨텍스트가 유지되지 않으면 lazy fetch로 데이터를 가져올 수 없어 테스트가 실패함
 	// Eager fetch로 데이터를 가져오거나 @Transactional로 영속성 컨텍스트를 유지시켜주어야 함
 	public void relationshipTest1() {
