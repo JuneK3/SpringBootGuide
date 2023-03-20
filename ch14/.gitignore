@@ -1,3 +1,5 @@
+src/main/resources/application-naver.yml
+
 HELP.md
 .gradle
 build/

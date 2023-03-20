@@ -1,2 +1,21 @@
 server:
   port: 8081
+
+spring:
+  profiles:
+    include: naver
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${MARIADB_URL}
+    username: ${MARIADB_USERNAME}
+    password: ${MARIADB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        database-platform: org.hibernate.dialect.MariaDB103Dialect
+        format_sql: true
