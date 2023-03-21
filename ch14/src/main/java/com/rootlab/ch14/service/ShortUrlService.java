@@ -1,9 +1,12 @@
 package com.rootlab.ch14.service;
 
 import com.rootlab.ch14.domain.ShortUrl;
+import com.rootlab.ch14.domain.ShortUrlRedisRepository;
 import com.rootlab.ch14.domain.ShortUrlRepository;
 import com.rootlab.ch14.dto.NaverApiResultDto;
 import com.rootlab.ch14.dto.ShortUrlResponseDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -12,23 +15,41 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 public class ShortUrlService {
+    private final Logger LOGGER = LoggerFactory.getLogger(ShortUrlService.class);
     private final ShortUrlRepository shortUrlRepository;
+    private final ShortUrlRedisRepository shortUrlRedisRepository;
 
     @Autowired
-    public ShortUrlService(ShortUrlRepository shortUrlRepository) {
+    public ShortUrlService(ShortUrlRepository shortUrlRepository, ShortUrlRedisRepository shortUrlRedisRepository) {
         this.shortUrlRepository = shortUrlRepository;
+        this.shortUrlRedisRepository = shortUrlRedisRepository;
     }
 
     public ShortUrlResponseDto getShortUrl(String clientId, String clientSecret, String originalUrl) {
+        // Cache Logic
+        Optional<ShortUrlResponseDto> responseDto = shortUrlRedisRepository.findById(originalUrl);
+        if (responseDto.isPresent()) {
+            LOGGER.info("[getShortUrl] Cache Data existed.");
+            return responseDto.get();
+        } else {
+            LOGGER.info("[getShortUrl] Cache Data does not existed.");
+        }
+
         ShortUrl foundEntity = shortUrlRepository.findByOrgUrl(originalUrl);
 
         if (foundEntity == null) {
             return createShortUrl(clientId, clientSecret, originalUrl);
         }
-        return new ShortUrlResponseDto(foundEntity.getUrl(), foundEntity.getOrgUrl());
+
+        // Cache Logic
+        ShortUrlResponseDto shortUrlResponseDto = new ShortUrlResponseDto(foundEntity.getOrgUrl(), foundEntity.getUrl());
+        LOGGER.info("[getShortUrl] Restore Cache Data.");
+        shortUrlRedisRepository.save(shortUrlResponseDto);
+        return shortUrlResponseDto;
     }
 
     public ShortUrlResponseDto generateShortUrl(String clientId, String clientSecret, String originalUrl) {
@@ -54,7 +75,12 @@ public class ShortUrlService {
                 .build();
 
         shortUrlRepository.save(shortUrlEntity);
-        return new ShortUrlResponseDto(shortUrl, orgUrl);
+
+        // Cache Logic
+        ShortUrlResponseDto shortUrlResponseDto = new ShortUrlResponseDto(orgUrl, shortUrl);
+        shortUrlRedisRepository.save(shortUrlResponseDto);
+
+        return shortUrlResponseDto;
     }
 
     private ResponseEntity<NaverApiResultDto> requestShortUrl(String clientId, String clientSecret, String originalUrl) {
