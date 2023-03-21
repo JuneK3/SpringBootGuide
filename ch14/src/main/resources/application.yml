@@ -4,6 +4,7 @@ server:
 spring:
   profiles:
     include: naver
+    active: dev
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
